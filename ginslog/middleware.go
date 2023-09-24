@@ -50,7 +50,7 @@ func Middleware() gin.HandlerFunc {
 			slog.Group("resp",
 				slog.Int("status", status),
 				slog.Duration("duration", duration),
-				slog.Uint64("size", uint64(ctx.Writer.Size())),
+				slog.Int("size", ctx.Writer.Size()),
 			),
 		)
 	}

@@ -27,7 +27,7 @@ func RoundTripper(inner http.RoundTripper) http.RoundTripper {
 				slog.Int64("size", r.ContentLength),
 			),
 		)
-		Debug(r, "Senf HTTP request")
+		Debug(r, "Send HTTP request")
 		start := time.Now()
 		resp, err := inner.RoundTrip(r)
 		duration := time.Since(start)

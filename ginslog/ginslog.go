@@ -10,25 +10,21 @@ import (
 var AddSource bool = false
 
 func Disable(ctx *gin.Context) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.Disable(ctx.Request))
 	return ctx
 }
 
 func Default(ctx *gin.Context) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.Default(ctx.Request))
 	return ctx
 }
 
 func New(ctx *gin.Context, h slog.Handler) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.New(ctx.Request, h))
 	return ctx
 }
 
 func FromLogger(ctx *gin.Context, l *slog.Logger) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.FromLogger(ctx.Request, l))
 	return ctx
 }
@@ -38,25 +34,21 @@ func Handler(ctx *gin.Context) slog.Handler {
 }
 
 func With(ctx *gin.Context, attrs ...slog.Attr) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.With(ctx.Request, attrs...))
 	return ctx
 }
 
 func WithGroup(ctx *gin.Context, name string) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.WithGroup(ctx.Request, name))
 	return ctx
 }
 
 func WithSource(ctx *gin.Context) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.WithSource(ctx.Request))
 	return ctx
 }
 
 func WithLevel(ctx *gin.Context, level slog.Level) *gin.Context {
-	ctx = ctx.Copy()
 	ctx.Request = (httpslog.WithLevel(ctx.Request, level))
 	return ctx
 }

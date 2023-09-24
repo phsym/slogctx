@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/phsym/slogctx v0.0.0-20230924110626-48ef457576f9
+	github.com/phsym/slogctx v0.0.0-20230924124411-db85788a9e2a
 )
 
 require (

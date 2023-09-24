@@ -25,10 +25,12 @@ jobs:
         go-version: '1.21'
 
     - name: Build
-      run: go build -v -C ${{ matrix.module }} ./...
+      run: go build -C ${{ matrix.module }} -v ./...
 
     - name: Test
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic -v -C ${{ matrix.module }} ./...
+      run: go test -C ${{ matrix.module }} -race -coverprofile=coverage.txt -covermode=atomic -v ./...
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
+      with:
+        directory: ${{ matrix.module }}

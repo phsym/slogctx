@@ -7,8 +7,6 @@ import (
 	"github.com/phsym/slogctx"
 )
 
-var AddSource bool = false
-
 func Disable(req *http.Request) *http.Request {
 	return req.WithContext(slogctx.Disable(req.Context()))
 }

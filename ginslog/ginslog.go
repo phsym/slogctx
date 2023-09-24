@@ -7,8 +7,6 @@ import (
 	"github.com/phsym/slogctx/httpslog"
 )
 
-var AddSource bool = false
-
 func Disable(ctx *gin.Context) *gin.Context {
 	ctx.Request = (httpslog.Disable(ctx.Request))
 	return ctx

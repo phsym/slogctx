@@ -43,10 +43,14 @@ github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9G
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/pelletier/go-toml/v2 v2.0.8 h1:0ctb6s9mE31h0/lhu+J6OPmVeDxJn+kYnJc2jZR9tGQ=
 github.com/pelletier/go-toml/v2 v2.0.8/go.mod h1:vuYfssBdrU2XDZ9bYydBu6t+6a6PYNcZljzZR9VXg+4=
-github.com/phsym/slogctx v0.0.0-20230924110626-48ef457576f9 h1:drPMlUaVXRsttMm4UFWzaim1wGo38YOlWdoZdNaa4lE=
-github.com/phsym/slogctx v0.0.0-20230924110626-48ef457576f9/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
 github.com/phsym/slogctx v0.0.0-20230924124411-db85788a9e2a h1:LdJucI7EUFKPLNA9r77kJGoGY/Ivo62C2V+iZlpb2Q8=
 github.com/phsym/slogctx v0.0.0-20230924124411-db85788a9e2a/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
+github.com/phsym/slogctx v0.0.0-20230924160739-763adc028d9b h1:zQvInUSE3mwFlQ3BU6XWfgjdsyXOuPKCZv5xKyhanlE=
+github.com/phsym/slogctx v0.0.0-20230924160739-763adc028d9b/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
+github.com/phsym/slogctx v0.0.0-20230924161436-88e332141158 h1:Pb4+/bn5zWFoDHa9L9xJt5iidN3BqNEtz+Lj0gpyar0=
+github.com/phsym/slogctx v0.0.0-20230924161436-88e332141158/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
+github.com/phsym/slogctx v0.0.0-20230924170329-526919698fbc h1:4LFns0k0GQp8735pBJ8GfzdvoVRTHuMw2+VsIjEBFqg=
+github.com/phsym/slogctx v0.0.0-20230924170329-526919698fbc/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

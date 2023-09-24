@@ -10,8 +10,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
+    strategy:
+      matrix:
+        module: ["./...", "./ginslog/..."]
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -22,10 +25,10 @@ jobs:
         go-version: '1.21'
 
     - name: Build
-      run: go build -v ./...
+      run: go build -v ${{ matrix.module }}
 
     - name: Test
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic -v ./...
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic -v ${{ matrix.module }}
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

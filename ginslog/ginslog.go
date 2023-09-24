@@ -2,68 +2,121 @@ package ginslog
 
 import (
 	"log/slog"
-	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/phsym/slogctx"
+	"github.com/phsym/slogctx/httpslog"
 )
 
-// func WithDefaultLogger() gin.HandlerFunc {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), slog.Default().Handler())))
-// 		})
-// 	}
-// }
+var AddSource bool = false
 
-// func WithLogger(logger slog.Handler)  gin.HandlerFunc {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
-// 		})
-// 	}
-// }
-
-func Middleware(h http.Handler) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		r := ctx.Request
-		c := slogctx.With(r.Context(),
-			slog.Group("req",
-				slog.String("method", r.Method),
-				slog.String("uri", r.URL.String()),
-				slog.String("ip", r.RemoteAddr),
-				slog.String("agent", r.UserAgent()),
-				slog.Int64("size", r.ContentLength),
-			),
-		)
-		slogctx.Info(c, "Start HTTP request")
-		start := time.Now()
-		ctx.Request = ctx.Request.WithContext(c)
-		ctx.Next()
-		duration := time.Since(start)
-
-		status := ctx.Writer.Status()
-		level := slog.LevelInfo
-		if status >= 400 {
-			level = slog.LevelWarn
-		} else if status >= 500 {
-			level = slog.LevelError
-		}
-		slogctx.LogAttrs(ctx, level, "End HTTP request",
-			slog.Group("resp",
-				slog.Int("status", status),
-				slog.Duration("duration", duration),
-				slog.Uint64("size", uint64(ctx.Writer.Size())),
-			),
-		)
-	}
+func Disable(ctx *gin.Context) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.Disable(ctx.Request))
+	return ctx
 }
 
-// func WithLogger(logger slog.Handler) func(http.Handler) http.Handler {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
-// 		})
-// 	}
-// }
+func Default(ctx *gin.Context) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.Default(ctx.Request))
+	return ctx
+}
+
+func New(ctx *gin.Context, h slog.Handler) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.New(ctx.Request, h))
+	return ctx
+}
+
+func FromLogger(ctx *gin.Context, l *slog.Logger) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.FromLogger(ctx.Request, l))
+	return ctx
+}
+
+func Handler(ctx *gin.Context) slog.Handler {
+	return httpslog.Handler(ctx.Request)
+}
+
+func With(ctx *gin.Context, attrs ...slog.Attr) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.With(ctx.Request, attrs...))
+	return ctx
+}
+
+func WithGroup(ctx *gin.Context, name string) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.WithGroup(ctx.Request, name))
+	return ctx
+}
+
+func WithSource(ctx *gin.Context) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.WithSource(ctx.Request))
+	return ctx
+}
+
+func WithLevel(ctx *gin.Context, level slog.Level) *gin.Context {
+	ctx = ctx.Copy()
+	ctx.Request = (httpslog.WithLevel(ctx.Request, level))
+	return ctx
+}
+
+func Log(ctx *gin.Context, level slog.Level, msg string, attrs ...any) {
+	httpslog.Log(ctx.Request, level, msg, attrs...)
+}
+
+func LogAttrs(ctx *gin.Context, level slog.Level, msg string, attrs ...slog.Attr) {
+	httpslog.LogAttrs(ctx.Request, level, msg, attrs...)
+}
+
+func Logf(ctx *gin.Context, level slog.Level, msg string, args ...any) {
+	httpslog.Logf(ctx.Request, level, msg, args...)
+}
+
+func Debug(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Debug(ctx.Request, msg, attrs...)
+}
+
+func Info(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Info(ctx.Request, msg, attrs...)
+}
+
+func Warn(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Warn(ctx.Request, msg, attrs...)
+}
+
+func Error(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Error(ctx.Request, msg, attrs...)
+}
+
+func DebugAttrs(ctx *gin.Context, msg string, attrs ...slog.Attr) {
+	httpslog.DebugAttrs(ctx.Request, msg, attrs...)
+}
+
+func InfoAttrs(ctx *gin.Context, msg string, attrs ...slog.Attr) {
+	httpslog.InfoAttrs(ctx.Request, msg, attrs...)
+}
+
+func WarnAttrs(ctx *gin.Context, msg string, attrs ...slog.Attr) {
+	httpslog.WarnAttrs(ctx.Request, msg, attrs...)
+}
+
+func ErrorAttrs(ctx *gin.Context, msg string, attrs ...slog.Attr) {
+	httpslog.ErrorAttrs(ctx.Request, msg, attrs...)
+}
+
+func Debugf(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Debugf(ctx.Request, msg, attrs...)
+}
+
+func Infof(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Infof(ctx.Request, msg, attrs...)
+}
+
+func Warnf(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Warnf(ctx.Request, msg, attrs...)
+}
+
+func Errorf(ctx *gin.Context, msg string, attrs ...any) {
+	httpslog.Errorf(ctx.Request, msg, attrs...)
+}

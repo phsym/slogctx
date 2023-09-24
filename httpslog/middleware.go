@@ -4,8 +4,6 @@ import (
 	"log/slog"
 	"net/http"
 	"time"
-
-	"github.com/phsym/slogctx"
 )
 
 type statusRecorder struct {
@@ -44,7 +42,7 @@ var _ http.ResponseWriter = (*statusRecorder)(nil)
 func WithDefaultLogger() func(http.Handler) http.Handler {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), slog.Default().Handler())))
+			h.ServeHTTP(w, New(r, slog.Default().Handler()))
 		})
 	}
 }
@@ -52,14 +50,14 @@ func WithDefaultLogger() func(http.Handler) http.Handler {
 func WithLogger(logger slog.Handler) func(http.Handler) http.Handler {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
+			h.ServeHTTP(w, New(r, logger))
 		})
 	}
 }
 
-func Log(h http.Handler) http.Handler {
+func Middleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ctx := slogctx.With(r.Context(),
+		r = With(r,
 			slog.Group("req",
 				slog.String("method", r.Method),
 				slog.String("uri", r.URL.String()),
@@ -68,10 +66,10 @@ func Log(h http.Handler) http.Handler {
 				slog.Int64("size", r.ContentLength),
 			),
 		)
-		slogctx.Info(ctx, "Start HTTP request")
+		Debug(r, "Start incoming HTTP request")
 		recorder := &statusRecorder{w, 0, 0}
 		start := time.Now()
-		h.ServeHTTP(recorder, r.WithContext(ctx))
+		h.ServeHTTP(recorder, r)
 		duration := time.Since(start)
 		level := slog.LevelInfo
 		if recorder.status >= 400 {
@@ -82,7 +80,7 @@ func Log(h http.Handler) http.Handler {
 		if recorder.status <= 0 {
 			recorder.status = http.StatusOK
 		}
-		slogctx.LogAttrs(ctx, level, "End HTTP request",
+		LogAttrs(r, level, "End incoming HTTP request",
 			slog.Group("resp",
 				slog.Int("status", recorder.status),
 				slog.Duration("duration", duration),

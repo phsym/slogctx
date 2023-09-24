@@ -1,10 +1,10 @@
 module github.com/phsym/slogctx/ginslog
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/phsym/slogctx v0.0.0-20230924095509-9b1e352ab460
+	github.com/phsym/slogctx v0.0.0-20230924110626-48ef457576f9
 )
 
 require (

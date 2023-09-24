@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        module: ["./...", "./ginslog/..."]
+        module: [".", "./ginslog"]
 
     runs-on: ubuntu-latest
     steps:
@@ -25,10 +25,10 @@ jobs:
         go-version: '1.21'
 
     - name: Build
-      run: go build -v ${{ matrix.module }}
+      run: go build -v -C ${{ matrix.module }} ./...
 
     - name: Test
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic -v ${{ matrix.module }}
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic -v -C ${{ matrix.module }} ./...
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

@@ -55,7 +55,7 @@ func WithLogger(logger slog.Handler) func(http.Handler) http.Handler {
 	}
 }
 
-func Middleware(h http.Handler) http.Handler {
+func AccessLog(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		r = With(r,
 			slog.Group("req",
@@ -89,11 +89,3 @@ func Middleware(h http.Handler) http.Handler {
 		)
 	})
 }
-
-// func WithLogger(logger slog.Handler) func(http.Handler) http.Handler {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
-// 		})
-// 	}
-// }

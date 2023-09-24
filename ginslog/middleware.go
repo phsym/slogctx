@@ -8,21 +8,17 @@ import (
 )
 
 func WithDefaultLogger() gin.HandlerFunc {
+	return WithLogger(slog.Default().Handler())
+}
+
+func WithLogger(logger slog.Handler) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		ctx = New(ctx, slog.Default().Handler())
+		ctx = New(ctx, logger)
 		ctx.Next()
 	}
 }
 
-// func WithLogger(logger slog.Handler)  gin.HandlerFunc {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
-// 		})
-// 	}
-// }
-
-func Middleware() gin.HandlerFunc {
+func AccessLog() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		ctx = With(ctx,
 			slog.Group("req",
@@ -55,11 +51,3 @@ func Middleware() gin.HandlerFunc {
 		)
 	}
 }
-
-// func WithLogger(logger slog.Handler) func(http.Handler) http.Handler {
-// 	return func(h http.Handler) http.Handler {
-// 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 			h.ServeHTTP(w, r.WithContext(slogctx.New(r.Context(), logger)))
-// 		})
-// 	}
-// }

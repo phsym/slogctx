@@ -37,10 +37,10 @@ func AccessLog() gin.HandlerFunc {
 
 		status := ctx.Writer.Status()
 		level := slog.LevelInfo
-		if status >= 400 {
-			level = slog.LevelWarn
-		} else if status >= 500 {
+		if status >= 500 {
 			level = slog.LevelError
+		} else if status >= 400 {
+			level = slog.LevelWarn
 		}
 		LogAttrs(ctx, level, "End incoming HTTP request",
 			slog.Group("resp",

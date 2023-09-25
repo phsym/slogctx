@@ -55,6 +55,8 @@ github.com/phsym/slogctx v0.0.0-20230924170604-9430341d1f83 h1:0bHTjxM/u594EtWhe
 github.com/phsym/slogctx v0.0.0-20230924170604-9430341d1f83/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
 github.com/phsym/slogctx v0.0.0-20230924171258-dca6da2cee29 h1:0AIiiSN+YJKrPq23ee88R9oV/TUOPG+TwDfDOaSNnJc=
 github.com/phsym/slogctx v0.0.0-20230924171258-dca6da2cee29/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
+github.com/phsym/slogctx v0.0.0-20230925192357-53e9af12b432 h1:ig38iGHe4eTVOTa8dClLvx2p3YqdUKM4leggTImbCAc=
+github.com/phsym/slogctx v0.0.0-20230925192357-53e9af12b432/go.mod h1:Mkoyyu70YFhA0CwY5IzYIipMoWaD5OBaNxs4XSTbQK0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

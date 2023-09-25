@@ -72,12 +72,11 @@ func AccessLog(h http.Handler) http.Handler {
 		h.ServeHTTP(recorder, r)
 		duration := time.Since(start)
 		level := slog.LevelInfo
-		if recorder.status >= 400 {
-			level = slog.LevelWarn
-		} else if recorder.status >= 500 {
+		if recorder.status >= 500 {
 			level = slog.LevelError
-		}
-		if recorder.status <= 0 {
+		} else if recorder.status >= 400 {
+			level = slog.LevelWarn
+		} else if recorder.status <= 0 {
 			recorder.status = http.StatusOK
 		}
 		LogAttrs(r, level, "End incoming HTTP request",

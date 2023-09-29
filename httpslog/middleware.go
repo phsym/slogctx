@@ -37,6 +37,10 @@ func (s *statusRecorder) WriteHeader(statusCode int) {
 	s.rw.WriteHeader(statusCode)
 }
 
+func (s *statusRecorder) Unwrap() http.ResponseWriter {
+	return s.rw
+}
+
 var _ http.ResponseWriter = (*statusRecorder)(nil)
 
 func WithDefaultLogger() func(http.Handler) http.Handler {

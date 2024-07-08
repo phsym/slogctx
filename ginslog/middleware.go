@@ -42,12 +42,15 @@ func AccessLog() gin.HandlerFunc {
 		} else if status >= 400 {
 			level = slog.LevelWarn
 		}
-		LogAttrs(ctx, level, "End incoming HTTP request",
-			slog.Group("resp",
-				slog.Int("status", status),
-				slog.Duration("duration", duration),
-				slog.Int("size", ctx.Writer.Size()),
-			),
-		)
+		attrs := []any{
+			slog.Int("status", status),
+			slog.Duration("duration", duration),
+			slog.Int("size", ctx.Writer.Size()),
+			slog.Bool("aborted", ctx.IsAborted()),
+		}
+		if errs := ctx.Errors.Errors(); len(errs) > 0 {
+			attrs = append(attrs, slog.Any("errors", errs))
+		}
+		LogAttrs(ctx, level, "End incoming HTTP request", slog.Group("resp", attrs...))
 	}
 }
